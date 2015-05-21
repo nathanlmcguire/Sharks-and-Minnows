@@ -45,6 +45,7 @@ import javax.swing.*;
 
 //import MotionWithKeyBindings.MotionAction;
 
+
 public class Runner 
 	{
 	static JComponent component;
@@ -53,6 +54,7 @@ public class Runner
 	static int count = 0, moveCount = 0, escapeCount = 0;
 	static JPanel content = new JPanel();
 	static JFrame frame = new JFrame("SHARKS AND MINNOWS");
+	static int speedX1 = 10, speedY1 = 10, speedX2 = 10, speedY2 = 10, speedX3 = 10, speedY3 = 10;
 
 	public Runner(JComponent component, JComponent object1, JComponent object2, JComponent object3)
 		{
@@ -282,7 +284,7 @@ public class Runner
 		int parentWidth  = parentSize.width;
 		int parentHeight = parentSize.height;
 
-		moveCount++;
+		
 		//  Determine next X position
 
 		int nextX = Math.max(component.getLocation().x + deltaX, 0);
@@ -363,34 +365,55 @@ public class Runner
 				System.out.println("Good job! Keep on munching!  Only " + (3 - count) + " left!");
 				}
 			}
-		int speedX1 = 0, speedY1 = 0, speedX2 = 0, speedY2 = 0, speedX3 = 0, speedY3 = 0;
-		if(moveCount < 50)
+		moveCount++;
+		if(moveCount == 1)
 			{
-		    speedX1 = (int) (Math.random() * 10);
-			speedY1 = (int) (Math.random() * 10);
-			speedX2 = (int) (Math.random() * 10);
-			speedY2 = (int) (Math.random() * 10);
-			speedX3 = (int) (Math.random() * 10);
-			speedY3 = (int) (Math.random() * 10);
+//		    speedX1 = (int) (Math.random() * 10) - 10;
+//			speedY1 = (int) (Math.random() * 10) - 10;
+//			speedX2 = (int) (Math.random() * 10) - 10;
+//			speedY2 = (int) (Math.random() * 10) - 10;
+//			speedX3 = (int) (Math.random() * 10) - 10;
+//			speedY3 = (int) (Math.random() * 10) - 10;
+			speedX1 = getDirection(speedX1);
+			speedY1 = getDirection(speedY1);
+			speedX2 = getDirection(speedX2);
+			speedY2 = getDirection(speedY2);
+			speedX3 = getDirection(speedX3);
+			speedY3 = getDirection(speedY3);
 			}
-		else if(moveCount >=50 && moveCount < 100)
-			{
-			speedX1 = (int) (Math.random() * 10) - 10;
-			speedY1 = (int) (Math.random() * 10) - 10;
-			speedX2 = (int) (Math.random() * 10) - 10;
-			speedY2 = (int) (Math.random() * 10) - 10;
-			speedX3 = (int) (Math.random() * 10) - 10;
-			speedY3 = (int) (Math.random() * 10) - 10;
-			}
-		else
+		else if( moveCount == 9)
 			{
 			moveCount = 0;
 			}
+
 		object1.setLocation(object1.getX() + speedX1, object1.getY() + speedY1);
 		object2.setLocation(object2.getX() + speedX2, object2.getY() + speedY2);
 		object3.setLocation(object3.getX() + speedX3, object3.getY() + speedY3);
 		//if((object1.getX() > parentWidth || object1.getY() > parentHeight) ||)
+		
 		}
+	
+	public int getDirection(int num)
+		{
+		int ran = (int) (Math.random() * 2);
+		switch(ran)
+			{
+			case 0:
+				{
+				//System.out.println("changed to pos");
+				return num;
+				
+				}
+			case 1:
+				{
+				//System.out.println("changed to neg");
+				return num * -1;
+				
+				}
+			}
+		return 0;
+		}
+	
 	}
 
 	
